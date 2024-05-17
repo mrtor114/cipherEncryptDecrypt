@@ -1,0 +1,41 @@
+'''To use this start with select "encode" or "decode"
+    then put the words that you want to encrypt or decrypt
+    select how many letter you want to shift
+    '''
+# in alphabet list double the amount of letter to fix shifting over 26
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+            'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+            'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+
+def caesar(start_text, shift_amount, cipher_direction):
+    new_text = " "  # create place holder
+    # check if user select decode (shift_amount *= -1 is new_position = position - shift_amount)
+    if direction == 'decode':
+        shift_amount *= -1
+    for char in start_text:
+        if char not in alphabet:  # find if there special characters or number not in the list just add to the place holder
+            new_text += char
+            
+        else:
+            position = alphabet.index(char)  # find the index position
+            new_position = position + shift_amount  # new text is position + or minus shift amount
+            new_text += alphabet[new_position]  # add new text with new position
+    print(f'The {cipher_direction}d is : {new_text}')
+
+
+replay = True
+while replay:  # add this function so user can keep using until say no
+    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+    if direction == 'encode' or direction == 'decode':  # incase user type something other than encode or decode
+        text = input("type your message:\n").lower()
+        shift = int(input('Type the shift number:\n'))
+        shift = shift % 26  # so what ever number user put will keep it in the list range
+
+        caesar(start_text=text, shift_amount=shift, cipher_direction=direction)
+        again = input("Type 'yes' if you want to go again. Otherwise type 'no' to stop.\n")
+        if again == 'no':
+            replay = False
+            print("GOOD BYE!!")
+    else:
+        print("*** Please type 'encode' or 'decode' ****")
